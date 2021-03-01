@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  selectCount,
-} from './podcastSlice';
+import { getPodcasts, selectPodcasts } from './podcastSlice';
 
 
  const Podcast = () => {
-  // const count = useSelector(selectCount);
+  const podcasts = useSelector(state => state.podcasts);
   const dispatch = useDispatch();
-  const [userPodcasts, setUserPodcasts] = useState();
+  const [userPodcasts, setUserPodcasts] = useState([]);
 
+  useEffect(() => {
+    dispatch(getPodcasts())
+  }, [dispatch])
 
 
   return (

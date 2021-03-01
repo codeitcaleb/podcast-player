@@ -14,28 +14,14 @@ const initialState = {
  const podcastSlice = createSlice({
   name: 'podcast',
   initialState, 
-  reducers: {
-    getPodcasts: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.podcasts.push(action.payload)
-    }//,
-    // decrement: state => {
-      //   state.value -= 1;
-      // },
-      // incrementByAmount: (state, action) => {
-      //   state.value += action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: {
     [getPodcasts.pending]: (state, action) => {
       state.status = 'loading'
     },
     [getPodcasts.fulfilled]: (state, { payload }) => {
       state.podcasts = payload
-      state.hasStatus = 'success'
+      state.status = 'success'
     },
     [getPodcasts.rejected]: (state, action) => {
       state.status = 'failed'
@@ -50,14 +36,10 @@ export const { increment, decrement, incrementByAmount } = podcastSlice.actions;
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
 
-export const fetchPodcasts = amount => dispatch => {
-  return 
-};
-
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectCount = state => state.counter.value;
+export const selectPodcasts = state => state.podcasts;
 
 
 
