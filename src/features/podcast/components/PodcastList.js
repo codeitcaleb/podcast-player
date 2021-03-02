@@ -1,19 +1,30 @@
-import React from 'react'
-import PodcastCard from './PodcastCard'
+import React, {useState} from 'react'
+import {DragDropContext, Droppable } from 'react-beautiful-dnd'
+import PodcastRow from './PodcastRow'
 
 const PodcastList = ({list}) => {
-    // const podcasts = Object.values(list)
-
-    console.log(list)
+    const [userPodcasts, setUserPodcasts] = useState([]);
 
     return (
         <div>
-            <ul>
-                {list && list.length && list.map(podcast => (
-                        <PodcastCard key={podcast.title} podcast={podcast} />
+            {/* <DragDropContext>
+                <Droppable>
+                    {(provided) => ( */}
+                        <ul className="left-list">
+                            {list && list.length && list.map(podcast => (
+                                    <PodcastRow 
+                                        key={podcast.title} 
+                                        podcast={podcast} 
+                                    />
+                                )
+                            )}
+                
+                        </ul> 
                     )
-                 )}
-            </ul>
+                        
+                    })
+                {/* </Droppable>
+            </DragDropContext> */}
         </div>
     )
 }
