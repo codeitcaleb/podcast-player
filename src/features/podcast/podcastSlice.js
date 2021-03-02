@@ -8,28 +8,32 @@ export const getPodcasts = createAsyncThunk('podcast/getPodcasts', async () => {
 
 const initialState = {
   podcasts: [],
+  currentlyPlaying: '',
   status: null
 }
 
  const podcastSlice = createSlice({
   name: 'podcast',
-  initialState, 
-  reducers: {},
+  initialState , 
+  reducers: {
+    updatePlaying: (state, action) => {
+      state.currentlyPlaying = action.payload
+  }},
   extraReducers: {
-    [getPodcasts.pending]: (state, action) => {
+    [getPodcasts.pending]: (state) => {
       state.status = 'loading'
     },
     [getPodcasts.fulfilled]: (state, { payload }) => {
       state.podcasts = payload
       state.status = 'success'
     },
-    [getPodcasts.rejected]: (state, action) => {
+    [getPodcasts.rejected]: (state) => {
       state.status = 'failed'
     }
   }
 });
 
-export const { increment, decrement, incrementByAmount } = podcastSlice.actions;
+export const { updatePlaying } = podcastSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -39,8 +43,7 @@ export const { increment, decrement, incrementByAmount } = podcastSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectPodcasts = state => state.podcasts;
-
-
+export const selectPodcasts = state => state.podcast.podcasts.podcasts
+export const selectCurrentlyPlaying = state => state.podcast.currentlyPlaying
 
 export default podcastSlice.reducer;
