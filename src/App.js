@@ -5,10 +5,10 @@ import PodcastPlayer  from './features/podcast/PodcastPlayer';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header"> */}
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <PodcastPlayer />
-      </header>
+      {/* </header> */}
     </div>
   );
 }
