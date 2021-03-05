@@ -21,7 +21,7 @@ const AudioPlayer = ({podcast}) => {
     } else if (podcast.isSelected && podcast.title === currentlyPlaying) {
         setPlaying(true)
     }
-  }, [currentlyPlaying, playing])
+  }, [currentlyPlaying, playing, setPlaying, podcast])
 
   const handlePlay = () => {
         setPlaying(true)
@@ -29,7 +29,6 @@ const AudioPlayer = ({podcast}) => {
   }
 
   const handlePause = () => {
-    console.log(podcast)
       setPlaying(false)
 }
 

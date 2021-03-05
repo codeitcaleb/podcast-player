@@ -26,8 +26,7 @@ const initialState = {
       state.currentlyPlaying = payload;
     },
     updatePodcast: (state, { payload: podcast}) => {
-      console.log("update podcast:", podcast.title)
-      
+
       const idx = findIndex(state.allPodcasts, podcast);
       state.allPodcasts[idx] = {...podcast, isSelected: !podcast.isSelected };
 
@@ -36,7 +35,6 @@ const initialState = {
       }
     },
     updateSelectedPodcasts: (state, { payload }) => {
-      console.log(payload)
       state.selectedPodcasts.push(payload);
     }, 
     reorderSelectedPodcasts: (state, { payload }) => {
@@ -69,7 +67,6 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const getAllPodcasts = state => {
-  console.log(state.podcast)
   return state.podcast.allPodcasts;
 }
 
