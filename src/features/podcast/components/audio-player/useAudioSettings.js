@@ -14,12 +14,12 @@ const useAudioSettings = (title) => {
       try {
         audio && audio.play() 
       } catch(err) {
-        console.error(err)
+        console.error(err.message)
       }} else {
       try {
         audio && audio.pause()
       } catch(err) {
-        console.error(err)
+        console.error(err.message)
       }
     }
   });

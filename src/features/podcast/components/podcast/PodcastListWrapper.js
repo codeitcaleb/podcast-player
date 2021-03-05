@@ -2,13 +2,11 @@ import React  from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Droppable } from "react-beautiful-dnd";
 import PodcastList from './PodcastList';
-import { selectAllSelectedPodcasts, } from '../../podcastSlice';
+import { selectAllSelectedPodcasts } from '../../podcastSlice';
 
 const PodcastListWrapper = ({podcasts, droppableId}) => {
   const shouldDisplaySelected = droppableId === "right-list";
   const selectedPodcasts = useSelector(selectAllSelectedPodcasts);
-
-
 
   return (
     <div className={`${droppableId}-container`}>
@@ -24,7 +22,7 @@ const PodcastListWrapper = ({podcasts, droppableId}) => {
                         }}
                     >
                         <PodcastList 
-                            list={podcasts} 
+                            list={podcasts } 
                             condition={shouldDisplaySelected}
                         />
                             {provided.placeholder}

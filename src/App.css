@@ -8,17 +8,22 @@ body {
   height: 100%;
   display: table-cell;
   vertical-align: middle;
-  background: grey;
+  background: white;
 }
 
 ul {
   list-style: none;
 }
 
+h1 {
+  text-align: center;
+}
+
 .podcast-container {
   display: flex;
   justify-content: center;
-  height: 80%;
+  height: 50%;
+  background: white;
 }
 
 .list-container {
@@ -27,23 +32,24 @@ ul {
   align-items: center;
 }
 
-.left-list-container  .right-list-container {
+.left-list-container .right-list-container {
   display: flex; 
   justify-content: center; 
   align-items: center;
+ 
 }
 
 .podcast-row {
   background: white;
-  border: 2px solid black;
-  margin: 20px;
-  padding-bottom: 1px;
+  border: 5px solid black;
+  margin: 10px;
+  padding: 5px;
 }
 
 .podcast-image {
   object-fit: fill;
   height: 100%;
-  width: 110px;
+  width: 100px;
   padding-right: 5px;
   background-size: cover;
 }
@@ -62,14 +68,15 @@ ul {
 .podcast-details {
   font-size: 10px;
   display: flex;
-  padding: 0px 3px 1px;
+  padding: 0px 6px 1px;
 }
 
 .podcast-description {
   font-size: 10px;
   display: flex;
   margin: 0px;
-  padding-bottom: 5px;
+  padding-right: 150px;
+  width: 100%;
 }
 
 .podcast-player {
@@ -94,13 +101,18 @@ ul {
   border-radius: 10px;
 }
 
+.audio-player {
+  align-items: center;
+  justify-content: center;
+}
+
 .left-list, .right-list {
-  height: 100%;
-  background: grey;
+  height: 95%;
+  background:grey;
   padding: 20px;
-  margin: 10px;
-  width: 525px;
-  min-height: 500px;
+  margin: 20px;
+  width: 500px;
+  border: 5px dashed black;
 }
 
 /* .App {

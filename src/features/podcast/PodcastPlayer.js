@@ -100,7 +100,7 @@ import '../../App.css'
         <PodcastListWrapper podcasts={unselectedPodcasts} droppableId="left-list" />
         <PodcastListWrapper podcasts={selectedPodcasts} droppableId="right-list" />
       </DragDropContext>
-      
+
     </div>
   );
 }

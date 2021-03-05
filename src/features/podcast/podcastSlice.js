@@ -23,23 +23,24 @@ const initialState = {
   initialState , 
   reducers: {
     updatePlaying: (state, {payload}) => {
-      state.currentlyPlaying = payload
+      state.currentlyPlaying = payload;
     },
     updatePodcast: (state, { payload: podcast}) => {
       console.log("update podcast:", podcast.title)
-      const idx = findIndex(state.allPodcasts, podcast)
-      state.allPodcasts[idx] = {...podcast, isSelected: !podcast.isSelected }
       
+      const idx = findIndex(state.allPodcasts, podcast);
+      state.allPodcasts[idx] = {...podcast, isSelected: !podcast.isSelected };
+
       if (state.selectedPodcasts.map(p => p.title).includes(podcast.title)) {
         state.selectedPodcasts = state.selectedPodcasts.filter(p => p.title !== podcast.title);        
       }
     },
     updateSelectedPodcasts: (state, { payload }) => {
       console.log(payload)
-      state.selectedPodcasts.push(payload)
+      state.selectedPodcasts.push(payload);
     }, 
     reorderSelectedPodcasts: (state, { payload }) => {
-      state.selectedPodcasts = payload
+      state.selectedPodcasts = payload;
     }
   },
   extraReducers: {
@@ -72,9 +73,7 @@ export const getAllPodcasts = state => {
   return state.podcast.allPodcasts;
 }
 
-export const selectUnselectedPodcasts = (state) => {
-  return state.podcast.allPodcasts.filter(p => !state.podcast.selectedPodcasts?.map(q => q.title).includes(p.title))
-}
+export const selectUnselectedPodcasts = (state) => {return state.podcast.allPodcasts.filter(p => !state.podcast.selectedPodcasts?.map(q => q.title).includes(p.title))}
 export const selectAllSelectedPodcasts = (state) => state.podcast.selectedPodcasts.filter(x => !!x)
 export const selectPodcastStatus = (state) => state.podcast.status
 export const selectCurrentlyPlaying = (state) => state.podcast.currentlyPlaying
