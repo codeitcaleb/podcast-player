@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
 import Play from "./Play";
@@ -6,6 +6,7 @@ import Pause from "./Pause";
 
 import { selectCurrentlyPlaying, updatePlaying  } from '../../podcastSlice';
 import useAudioSettings from './useAudioSettings';
+import '../../../../App.css'
 
 const AudioPlayer = ({podcast}) => { 
   const currentlyPlaying = useSelector(selectCurrentlyPlaying);
@@ -17,7 +18,7 @@ const AudioPlayer = ({podcast}) => {
     if (playing && podcast.title !== currentlyPlaying) {
         setPlaying(false)
     } 
-  }, [currentlyPlaying, playing])
+  }, [currentlyPlaying, playing, podcast, setPlaying])
 
   const handlePlay = () => {
         setPlaying(true)
@@ -26,12 +27,13 @@ const AudioPlayer = ({podcast}) => {
 
   if (podcast) {
         return (
-            <div className="player">
+            <div className="audio-player">
+            <div className="audio-controls">
               <audio id={podcast.title}>
                 <source src={podcast.audio} />
               </audio>
 
-              <div className="controls">
+              
 
                 {playing ? 
                   <Pause handleClick={() => setPlaying(false)} /> : //was false

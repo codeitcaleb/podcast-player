@@ -4,9 +4,6 @@ const useAudioSettings = (title) => {
   let audio = document.getElementById(title);
   const [playing, setPlaying] = useState(false);
   
-  // console.log(audio)
-  // console.log(playing)
-
   useEffect(() => {
     if (!audio) {
       return;

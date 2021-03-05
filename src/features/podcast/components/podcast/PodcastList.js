@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
-import {DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-
+import React from 'react'
 import PodcastRow from './PodcastRow'
 
-const PodcastList = ({list}) => {
-
+const PodcastList = ({list, condition}) => {
+    // console.log(list)
     return (
         <>
-            {list && list.length && list.map((podcast, index) => (
-                <PodcastRow
-                    id={index}
-                    key={podcast.title} 
-                    podcast={podcast} 
-                />
+            {list?.length && 
+              list.map((podcast, index) => (
+                  //podcast.isSelected === condition &&
+                    <PodcastRow
+                        id={index}
+                        key={podcast.title} 
+                        podcast={podcast} 
+                    />
                 )
             )}
         </>                

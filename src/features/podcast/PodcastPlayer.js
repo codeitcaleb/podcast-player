@@ -1,94 +1,104 @@
-import React, { useState, useEffect } from 'react';
-import {DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import React, { useEffect } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd'
 import { useSelector, useDispatch } from 'react-redux';
-import { getPodcasts, selectPodcasts } from './podcastSlice';
-import PodcastList from './components/podcast/PodcastList'
+import { 
+  getPodcasts,
+  getAllPodcasts,
+  updatePodcast, 
+  updateSelectedPodcasts,
+  reorderSelectedPodcasts,
+  selectUnselectedPodcasts, 
+  selectAllSelectedPodcasts, 
+  selectPodcastStatus 
+} from './podcastSlice';
+import PodcastListWrapper from './components/podcast/PodcastListWrapper'
+import '../../App.css'
 
  const PodcastPlayer = () => {
-  const [userPlaylist, setUserPlaylist] = useState([]);
-
-  const podcasts = useSelector(selectPodcasts);
+  const allPodcasts = useSelector(getAllPodcasts);
+  const unselectedPodcasts = useSelector(selectUnselectedPodcasts);
+  const selectedPodcasts = useSelector(selectAllSelectedPodcasts);
+  const podcastStatus = useSelector(selectPodcastStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPodcasts())
-  }, [dispatch])
+    if (podcastStatus === "idle") {
+      dispatch(getPodcasts())
+    }
+  }, [podcastStatus, dispatch])
 
   useEffect(() => {
-    if (userPlaylist.length !== []) {
-      // console.log(userPlaylist)
+    if (selectedPodcasts !== [] ) {
+      dispatch(updateSelectedPodcasts)
     }
-  }, [userPlaylist])
+  }, [selectedPodcasts, dispatch])
 
-  const onDragEnd = (result, userPlaylist, setUserPlaylist) => {
-    if (!result.destination) return;
-    const { source, destination, draggableId } = result;
+  const reorder = (list, startIndex, endIndex) => {
+    // console.log(list)
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    
+    // console.log(result)
+    return result;
+  }
 
-    if (source.droppableId !== destination.droppableId) {
-           
-      let selectedPodcast = podcasts.find((podcast) => podcast.title === draggableId)
+  const handleDrag = ({ source, destination, draggableId }) => {
+    console.log({ source, destination, draggableId })
+    const selectedPodcast = allPodcasts.find((podcast) => podcast.title === draggableId)
+    console.log(selectedPodcast)
+
+    if (source.droppableId === "left-list" && !destination) {
+      console.log("left to none")
+      return;
+    } else if (source.droppableId === "right-list" && (!destination || destination.droppableId === "left-list")) {
+      console.log("right to none or left")
+      dispatch(updatePodcast(selectedPodcast));
+    } else if (source.droppableId === "left-list" && destination?.droppableId === "right-list") {
+      console.log("left to right")
+      dispatch(updatePodcast(selectedPodcast));
+      dispatch(updateSelectedPodcasts(selectedPodcast))
+    } else if (source.droppableId === "right-list" && destination.droppableId === "right-list") {
+      console.log("right to right")
+      const reorderedList = reorder(
+        selectedPodcasts,
+        source.index,
+        destination.index
+      );
+      dispatch(reorderSelectedPodcasts(reorderedList))
+    }
+
+  /*
+    if (source.droppableId === "left-list" && !destination) {
+      return;
+    }
+    
+    if (source.droppableId === "left-list" && destination?.droppableId === "right-list") {
       
-      console.log(selectedPodcast)
-      userPlaylist && userPlaylist.length && setUserPlaylist([...userPlaylist, selectedPodcast])
-      
+      dispatch(updatePodcast(selectedPodcast))
+      dispatch(updateSelectedPodcasts(selectedPodcast))
+    } else if (destination && source.droppableId === destination.droppableId && source.droppableId !== "left-list") {
+      const reorderedList = reorder(
+          selectedPodcasts,
+          source.index,
+          destination.index
+        );
+
+      dispatch(reorderSelectedPodcasts(reorderedList))
+    } else if (source.droppableId === "right-list" && destination?.droppableId !== "right-list") {
+      dispatch(updatePodcast(selectedPodcast));
+      return;
     } else {
-      console.log(result)
+      return
     }
+    */
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', height: '100%'}}>
-      <DragDropContext onDragEnd={result => onDragEnd(result)} >
-
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Droppable droppableId="left-list">
-              {(provided, snapshot) => {
-                return (
-
-                  <ul 
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className="left-list"
-                    style={{
-                      background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
-                      padding: 4,
-                      margin: 8,
-                      width: 500,
-                      minHeight: 500
-                    }}
-                  >
-                    <PodcastList list={podcasts}/>
-                    {provided.placeholder}
-                  </ul>
-                )
-              }}
-            </Droppable>
-          </div>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <Droppable droppableId="right-list" >
-              {(provided, snapshot) => {
-                return (
-                  <ul 
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className="right-list"
-                    style={{
-                      background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
-                      padding: 4,
-                      margin: 8,
-                      width: 500,
-                      minHeight: 500
-                    }}
-                  >
-                    <PodcastList list={userPlaylist}/>
-                    {provided.placeholder}
-                  </ul>
-                )
-              }}
-            </Droppable>
-        </div>
-        
+    <div className="podcast-container" >
+      <DragDropContext onDragEnd={result => handleDrag(result)} >
+        <PodcastListWrapper podcasts={unselectedPodcasts} droppableId="left-list" />
+        <PodcastListWrapper podcasts={selectedPodcasts} droppableId="right-list" />
       </DragDropContext>
       
     </div>
@@ -96,3 +106,6 @@ import PodcastList from './components/podcast/PodcastList'
 }
 
 export default PodcastPlayer
+
+
+
