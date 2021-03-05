@@ -8,7 +8,7 @@
 ## 🧐 About <a name = "about"></a>
 The Podcast Player allows a user to choose from a fixed list of podcasts and create their own playlist by dragging a podcast over from the left list to the right list. Podcasts in the left list can be played by pressing the play button and paused by pressing it again. When podcasts are dragged over to the right list from the left list, it is removed from the the left list and added to the right list. When a user drags a podcast outside of the boundaries of the right list, it is removed from the removed from the right list and added back to the left list.
 
-Podcast Player is a Single-Page Application (SPA) built in React where the data is rendered dynamically upon completion of the fetch request from the AsyncThunk in the Redux Store (in podcastSlice.js) and stored as global state. State is then updated by passing the current state, triggering the actions in the reducer (updatePlaying, updatePlaying/Podcast, reorder/updateSelectedPodcast) with the new data (action/payload) and re-rendering.
+Podcast Player is a Single-Page Application (SPA) built in React where the data is rendered dynamically upon completion of the fetch request from the AsyncThunk in the Redux Store (in podcastSlice.js) and stored as global state. State is then updated by passing the current state, triggering the actions in the reducer (updatePlaying, updatePlaying/Podcast, reorder/updateSelectedPodcast) with the new data (action/payload). The Components connected to the store receive this new data and re-renders to display the update.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 These instructions will get you a copy of the project up and running on your local machine.
