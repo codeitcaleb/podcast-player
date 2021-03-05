@@ -1,4 +1,4 @@
-### 📝 Table of Contents
+### Table of Contents
 - [About](#about)
 - [SPA Architecture & Data Flow](#about)
 - [Getting Started](#getting_started)
@@ -6,7 +6,7 @@
 - [Usage](#usage)
 - [Built Using](#built_using)
 
-## 🧐 About <a name = "about"></a>
+## About <a name = "about"></a>
 The Podcast Player allows a user to choose from a fixed list of podcasts and create their own playlist by dragging a podcast over from the left list to the right list. Podcasts in the left list can be played by pressing the play button and paused by pressing it again. When podcasts are dragged over to the right list from the left list, it is removed from the the left list and added to the right list. When a user drags a podcast outside of the boundaries of the right list, it is removed from the removed from the right list and added back to the left list.
 
 ### SPA Architecture and Data Flow <a name = "spa_arcitecture"></a>
